@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>معرض الإبداع المدرسي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+</head>
+<body>
+<div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <button class="brand" data-nav="home" aria-label="الرئيسية">
+      <span class="brand-logo" id="brandLogo">🎨</span>
+      <span class="brand-text">
+        <strong id="brandSchool">مدرسة النموذجية الابتدائية</strong>
+        <small id="brandGallery">معرض الإبداع المدرسي</small>
+      </span>
+    </button>
+    <nav class="topnav">
+      <button data-nav="home" class="nav-link active">الرئيسية</button>
+      <button data-nav="teachers" class="nav-link">إبداعات المعلمات</button>
+      <button data-nav="students" class="nav-link">إبداعات الطلاب</button>
+    </nav>
+    <button id="adminEntryBtn" class="btn btn-ghost btn-sm" data-nav="admin">🔐 دخول المسؤول</button>
+    <button id="menuBtn" class="icon-btn only-mobile" aria-label="القائمة">☰</button>
+  </div>
+  <div id="mobileNav" class="mobile-nav hidden">
+    <button data-nav="home">الرئيسية</button>
+    <button data-nav="teachers">إبداعات المعلمات</button>
+    <button data-nav="students">إبداعات الطلاب</button>
+    <button data-nav="admin">🔐 دخول المسؤول</button>
+  </div>
+</header>
+
+<main id="app" class="container">
+  <!-- HOME -->
+  <section id="view-home" class="view">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge" id="heroSchool">🏫 مدرسة النموذجية الابتدائية</div>
+        <h1 id="heroTitle">معرض الإبداع المدرسي</h1>
+        <p id="heroWelcome">أهلاً بكم في مساحتنا المشرقة لعرض إبداعات المعلمات والطلاب الرقمية — تصاميم، عروض، فيديو والمزيد.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-nav="teachers">استكشفي إبداعات المعلمات</button>
+          <button class="btn btn-secondary" data-nav="students">استكشف إبداعات الطلاب</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong id="statTeachers">0</strong><span>عمل للمعلمات</span></div>
+          <div class="stat"><strong id="statStudents">0</strong><span>عمل للطلاب</span></div>
+          <div class="stat gold"><strong id="statFeatured">0</strong><span>عمل مميز ⭐</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-card a1">🖌️<small>تصاميم</small></div>
+        <div class="art-card a2">🎬<small>فيديو</small></div>
+        <div class="art-card a3">📊<small>عروض</small></div>
+        <div class="art-card a4">📕<small>قصص PDF</small></div>
+        <div class="art-main">🌟<small>إبداع</small></div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>أقسام المعرض</h2>
+      <p>اختاري قسمًا لتصفح الأعمال الخاصة به</p>
+    </div>
+    <div class="dept-grid">
+      <button class="dept-card teachers" data-nav="teachers">
+        <span class="dept-icon">👩‍🏫</span>
+        <h3>إبداعات المعلمات</h3>
+        <p>وسائل تعليمية، تصاميم، عروض ومشاريع من المعلمات</p>
+        <span class="dept-count"><b id="countTeachers">0</b> عمل منشور</span>
+        <span class="dept-go">دخول المعرض ←</span>
+      </button>
+      <button class="dept-card students" data-nav="students">
+        <span class="dept-icon">🧑‍🎓</span>
+        <h3>إبداعات الطلاب</h3>
+        <p>رسومات رقمية، قصص، فيديو ومشاريع الطلاب</p>
+        <span class="dept-count"><b id="countStudents">0</b> عمل منشور</span>
+        <span class="dept-go">دخول المعرض ←</span>
+      </button>
+    </div>
+
+    <div class="section-head row">
+      <div><h2>⭐ أعمال مميزة</h2><p>مختارات المسؤول من أفضل الأعمال</p></div>
+    </div>
+    <div id="featuredGrid" class="cards-grid"></div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="view-gallery" class="view hidden">
+    <div class="gallery-head">
+      <div>
+        <div id="galleryKicker" class="kicker">👩‍🏫 إبداعات المعلمات</div>
+        <h2 id="galleryTitle">معرض إبداعات المعلمات</h2>
+        <p id="galleryDesc" class="muted"></p>
+      </div>
+      <button class="btn btn-ghost btn-sm" data-nav="home">→ عودة للرئيسية</button>
+    </div>
+    <div class="toolbar">
+      <div class="search-box">🔍 <input id="searchInput" type="search" placeholder="ابحث باسم العمل أو صاحبه…"></div>
+      <select id="filterType" aria-label="نوع العمل"></select>
+      <select id="filterCat" aria-label="التصنيف"></select>
+      <select id="filterGrade" aria-label="الصف أو التخصص"></select>
+      <button id="clearFilters" class="btn btn-ghost btn-sm">مسح الفلاتر</button>
+    </div>
+    <div id="galleryGrid" class="cards-grid"></div>
+    <div id="galleryEmpty" class="empty hidden">
+      <div class="empty-icon">🖼️</div>
+      <h3>لا توجد أعمال منشورة هنا بعد</h3>
+      <p>سيضيف المسؤول أعمالًا جديدة قريبًا — عودوا لزيارتنا لاحقًا.</p>
+    </div>
+  </section>
+
+  <!-- ADMIN LOGIN / SETUP -->
+  <section id="view-admin-auth" class="view hidden">
+    <div class="auth-card">
+      <div id="setupBox" class="hidden">
+        <h2>👋 إنشاء حساب المسؤول (أول تشغيل)</h2>
+        <p class="muted">لا يوجد حساب بعد على هذا الجهاز. أنشئي حساب المسؤول — يُحفظ محليًا على هذا المتصفح.</p>
+        <label>اسم المستخدم<input id="setupUser" autocomplete="username" placeholder="مثال: admin"></label>
+        <label>كلمة المرور<input id="setupPass" type="password" autocomplete="new-password" placeholder="8 أحرف على الأقل"></label>
+        <label>تأكيد كلمة المرور<input id="setupPass2" type="password" autocomplete="new-password" placeholder="أعيدي كتابة كلمة المرور"></label>
+        <button id="setupBtn" class="btn btn-primary full">إنشاء الحساب</button>
+      </div>
+      <div id="loginBox">
+        <h2>🔐 تسجيل دخول المسؤول</h2>
+        <p class="muted">الرفع والإدارة للمسؤول فقط. الزوار يتصفحون دون تسجيل دخول.</p>
+        <label>اسم المستخدم<input id="loginUser" autocomplete="username" placeholder="اسم المستخدم"></label>
+        <label>كلمة المرور<input id="loginPass" type="password" autocomplete="current-password" placeholder="كلمة المرور"></label>
+        <button id="loginBtn" class="btn btn-primary full">دخول لوحة التحكم</button>
+        <button class="btn btn-ghost btn-sm full" data-nav="home">تصفح المعرض كزائر</button>
+        <p class="hint">نسيتِ البيانات؟ يمكن تصفيرها من لوحة التحكم ← الإعدادات، أو امسحي بيانات الموقع من المتصفح وأعيدي الإنشاء.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN PANEL -->
+  <section id="view-admin" class="view hidden">
+    <div class="admin-head">
+      <div><h2>🛠️ لوحة تحكم المسؤول</h2><p class="muted" id="adminHello">مرحبًا بك</p></div>
+      <div class="admin-head-btns">
+        <button class="btn btn-ghost btn-sm" data-nav="home">عرض الموقع</button>
+        <button id="logoutBtn" class="btn btn-danger btn-sm">تسجيل الخروج</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="works">الأعمال</button>
+      <button class="tab" data-tab="editor">➕ إضافة عمل</button>
+      <button class="tab" data-tab="cats">التصنيفات</button>
+      <button class="tab" data-tab="featured">المميزة والترتيب</button>
+      <button class="tab" data-tab="settings">إعدادات المعرض</button>
+      <button class="tab" data-tab="security">الأمان</button>
+    </div>
+
+    <div id="tab-works" class="tabpane">
+      <div class="toolbar">
+        <select id="adminFilterSection"><option value="">كل الأقسام</option><option value="teachers">المعلمات</option><option value="students">الطلاب</option></select>
+        <select id="adminFilterStatus"><option value="">الكل (منشور + مسودة)</option><option value="published">منشور فقط</option><option value="draft">مسودة فقط</option></select>
+        <input id="adminSearch" type="search" placeholder="بحث في الأعمال…">
+      </div>
+      <div class="table-wrap"><table class="table" id="worksTable">
+        <thead><tr><th>العمل</th><th>القسم</th><th>النوع</th><th>الحالة</th><th>مميز</th><th>إجراءات</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+
+    <div id="tab-editor" class="tabpane hidden">
+      <form id="workForm" class="form-grid" novalidate>
+        <input type="hidden" id="fId">
+        <div class="card form-card">
+          <h3>📝 بيانات العمل</h3>
+          <div class="row2">
+            <label>عنوان العمل *<input id="fTitle" required maxlength="80" placeholder="مثال: وسيلة تعليمية للحروف"></label>
+            <label>اسم صاحب العمل *<input id="fOwner" required maxlength="60" placeholder="اسم المعلمة / الطالب"></label>
+          </div>
+          <div class="row2">
+            <label>القسم *
+              <select id="fSection"><option value="teachers">إبداعات المعلمات</option><option value="students">إبداعات الطلاب</option></select>
+            </label>
+            <label>نوع العمل *
+              <select id="fType"><option value="image">🖼️ صورة / تصميم</option><option value="pdf">📕 ملف PDF</option><option value="video">🎬 فيديو</option><option value="link">🔗 رابط خارجي</option></select>
+            </label>
+          </div>
+          <div class="row2">
+            <label><span id="gradeLabel">التخصص / الصف</span><input id="fGrade" maxlength="40" placeholder="مثال: الصف الثالث / تخصص علوم"></label>
+            <label>التصنيف<select id="fCategory"></select></label>
+          </div>
+          <label>وصف العمل<textarea id="fDesc" rows="3" maxlength="800" placeholder="نبذة قصيرة عن العمل…"></textarea></label>
+          <div class="row2">
+            <label class="check"><input type="checkbox" id="fPublished" checked> نشر فورًا (إلغاء التحديد = حفظ كمسودة)</label>
+            <label class="check"><input type="checkbox" id="fFeatured"> ⭐ عمل مميز (يظهر في الرئيسية)</label>
+          </div>
+          <label class="check"><input type="checkbox" id="fDownload" checked> السماح بتنزيل العمل للزوار</label>
+        </div>
+        <div class="card form-card">
+          <h3>📎 ملف العمل أو الرابط</h3>
+          <div id="fileBox">
+            <label>ملف العمل<input id="fFile" type="file"></label>
+            <p class="hint" id="fileHint"></p>
+            <div class="progress hidden" id="uploadProgress"><div class="bar"></div></div>
+            <label>صورة غلاف اختيارية (للفيديو والروابط و PDF)<input id="fCover" type="file" accept="image/*"></label>
+          </div>
+          <label id="linkBox" class="hidden">الرابط الخارجي<input id="fLink" type="url" dir="ltr" placeholder="https://…"></label>
+          <h3>👁️ معاينة قبل النشر</h3>
+          <div id="livePreview" class="preview-box"><span class="muted">املئي البيانات لعرض المعاينة هنا</span></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">💾 حفظ العمل</button>
+            <button type="button" id="resetFormBtn" class="btn btn-ghost">إلغاء / جديد</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="tab-cats" class="tabpane hidden">
+      <div class="card"><h3>🏷️ إدارة التصنيفات</h3>
+        <div class="row-inline"><input id="newCat" maxlength="30" placeholder="اسم تصنيف جديد…"><button id="addCatBtn" class="btn btn-primary btn-sm">إضافة</button></div>
+        <div id="catList" class="chips"></div>
+      </div>
+    </div>
+
+    <div id="tab-featured" class="tabpane hidden">
+      <div class="card"><h3>⭐ المميزة والترتيب</h3>
+        <p class="muted">رتّبي الظهور بأسهم التحريك. المميزة تظهر في الرئيسية.</p>
+        <div id="orderList" class="order-list"></div>
+      </div>
+    </div>
+
+    <div id="tab-settings" class="tabpane hidden">
+      <div class="card form-card"><h3>⚙️ إعدادات المعرض</h3>
+        <div class="row2">
+          <label>اسم المدرسة<input id="sSchool"></label>
+          <label>اسم المعرض<input id="sGallery"></label>
+        </div>
+        <label>العبارة الترحيبية<textarea id="sWelcome" rows="2"></textarea></label>
+        <div class="row2">
+          <label>شعار المدرسة (إيموجي أو حرف)<input id="sLogo" maxlength="4"></label>
+          <label>عرض اسم الطالب<select id="sPrivacy"><option value="full">الاسم كاملًا</option><option value="first">الاسم الأول فقط</option><option value="hidden">إخفاء الاسم</option></select></label>
+        </div>
+        <div class="row2">
+          <label>اللون الأساسي<input id="sPrimary" type="color" value="#0ea5a0"></label>
+          <label>اللون الذهبي<input id="sGold" type="color" value="#c9a227"></label>
+        </div>
+        <button id="saveSettingsBtn" class="btn btn-primary">حفظ الإعدادات</button>
+        <hr>
+        <h3>🗑️ بيانات توضيحية</h3>
+        <p class="muted">البيانات الحالية توضيحية بأسماء وصور رمزية. احذفيها عندما تجهز أعمالك الحقيقية.</p>
+        <div class="row-inline">
+          <button id="reseedBtn" class="btn btn-ghost btn-sm">استعادة البيانات التوضيحية</button>
+          <button id="wipeBtn" class="btn btn-danger btn-sm">حذف كل الأعمال</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-security" class="tabpane hidden">
+      <div class="card form-card"><h3>🔑 تغيير بيانات الدخول</h3>
+        <label>اسم المستخدم الحالي<input id="secUser"></label>
+        <label>كلمة المرور الحالية<input id="secOld" type="password"></label>
+        <label>كلمة المرور الجديدة<input id="secNew" type="password"></label>
+        <button id="changePassBtn" class="btn btn-primary">حفظ التغيير</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- DETAIL MODAL -->
+<div id="detailModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+    <div class="modal-media" id="modalMedia"></div>
+    <div class="modal-info">
+      <div class="badges" id="modalBadges"></div>
+      <h2 id="modalTitle"></h2>
+      <p class="muted" id="modalOwner"></p>
+      <p id="modalDesc"></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost btn-sm" id="prevWork">→ السابق</button>
+        <a class="btn btn-primary btn-sm hidden" id="modalOpen" target="_blank" rel="noopener">🔗 فتح الرابط</a>
+        <a class="btn btn-secondary btn-sm hidden" id="modalDownload" download>⬇️ تنزيل</a>
+        <button class="btn btn-ghost btn-sm" id="nextWork">التالي ←</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM -->
+<div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-box small">
+    <h3>⚠️ تأكيد الحذف</h3>
+    <p id="confirmText">هل أنت متأكدة من حذف هذا العمل؟ لا يمكن التراجع.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmNo">تراجع</button>
+      <button class="btn btn-danger" id="confirmYes">نعم، احذف</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <span id="footText">معرض الإبداع المدرسي — جميع الأعمال لأصحابها من المعلمات والطلاب</span>
+    <span class="foot-note">بيانات توضيحية قابلة للحذف — لا توجد أسماء أو صور حقيقية</span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
