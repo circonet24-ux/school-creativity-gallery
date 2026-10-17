@@ -476,6 +476,44 @@ $("#changePassBtn").addEventListener("click", async ()=>{
   $("#adminCertRefresh").addEventListener("click", drawCertAdmin);
   $("#adminCertDate").value = new Date().toISOString().split("T")[0];
 
+  /* PWA install popup */
+  const installPopup = $("#installPopup");
+  const installBtn = $("#installBtn");
+  const installLater = $("#installLater");
+  const installClose = $("#installClose");
+  let deferredInstallPrompt = null;
+
+  function isStandalone(){
+    return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  }
+
+  if(!isStandalone() && installPopup){
+    window.addEventListener("beforeinstallprompt", (e)=>{
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      setTimeout(()=>{ installPopup.classList.add("open"); }, 1500);
+    });
+  }
+
+  function closeInstallPopup(){ if(installPopup) installPopup.classList.remove("open"); }
+  if(installClose) installClose.addEventListener("click", closeInstallPopup);
+  if(installLater) installLater.addEventListener("click", closeInstallPopup);
+
+  if(installBtn){
+    installBtn.addEventListener("click", async ()=>{
+      if(deferredInstallPrompt){
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if(outcome === "accepted"){ toast("تمت إضافة التطبيق إلى شاشتك الرئيسية","ok"); }
+        deferredInstallPrompt = null;
+        closeInstallPopup();
+      } else {
+        toast("من قائمة المتصفح اختاري 'إضافة إلى الشاشة الرئيسية'","ok");
+        closeInstallPopup();
+      }
+    });
+  }
+
   /* init */
   updateFileHint();
   nav("home");

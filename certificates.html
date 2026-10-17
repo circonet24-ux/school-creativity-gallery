@@ -315,5 +315,53 @@
       $("#menuBtn").addEventListener("click", ()=>$("#mobileNav").classList.toggle("hidden"));
     })();
   </script>
+
+<!-- PWA install popup -->
+<div id="installPopup" class="install-popup" role="dialog" aria-modal="true" aria-label="تثبيت التطبيق">
+  <div class="panel">
+    <h3>📱 حملي التطبيق</h3>
+    <p>يمكنكِ تثبيت معرض الإبداع المدرسي كتطبيق على هاتفك للوصول السريع منه في أي وقت.</p>
+    <div class="actions">
+      <button class="btn btn-primary" id="installBtn">تثبيت التطبيق</button>
+      <button class="btn btn-ghost" id="installLater">لاحقاً</button>
+    </div>
+    <button class="close" id="installClose">إغلاق</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const installPopup = document.getElementById('installPopup');
+  const installBtn = document.getElementById('installBtn');
+  const installLater = document.getElementById('installLater');
+  const installClose = document.getElementById('installClose');
+  let deferredInstallPrompt = null;
+  function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }
+  function closeInstallPopup(){ if(installPopup) installPopup.classList.remove('open'); }
+  if(installClose) installClose.addEventListener('click', closeInstallPopup);
+  if(installLater) installLater.addEventListener('click', closeInstallPopup);
+  if(!isStandalone() && installPopup){
+    window.addEventListener('beforeinstallprompt', (e)=>{
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      setTimeout(()=>installPopup.classList.add('open'), 1500);
+    });
+  }
+  if(installBtn){
+    installBtn.addEventListener('click', async ()=>{
+      if(deferredInstallPrompt){
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if(outcome === 'accepted'){ alert('تمت إضافة التطبيق إلى شاشتك الرئيسية'); }
+        deferredInstallPrompt = null;
+        closeInstallPopup();
+      } else {
+        alert('من قائمة المتصفح اختاري "إضافة إلى الشاشة الرئيسية"');
+        closeInstallPopup();
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
