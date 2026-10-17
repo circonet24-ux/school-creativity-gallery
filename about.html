@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عن المعرض | معرض الإبداع المدرسي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+</head>
+<body>
+  <div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="الرئيسية">
+        <span class="brand-logo" id="brandLogo">🎨</span>
+        <span class="brand-text">
+          <strong id="brandSchool">مدرسة النموذجية الابتدائية</strong>
+          <small id="brandGallery">معرض الإبداع المدرسي</small>
+        </span>
+      </a>
+      <nav class="topnav">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="index.html" class="nav-link">المعرض</a>
+        <a href="about.html" class="nav-link active">عن المعرض</a>
+      </nav>
+      <a href="index.html" class="btn btn-ghost btn-sm">العودة للرئيسية</a>
+      <button id="menuBtn" class="icon-btn only-mobile" aria-label="القائمة">☰</button>
+    </div>
+    <div id="mobileNav" class="mobile-nav hidden">
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html">المعرض</a>
+      <a href="about.html">عن المعرض</a>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top:10px;">
+    <section id="view-about" class="view">
+      <div class="hero" style="grid-template-columns:1fr;background:linear-gradient(135deg,#ffffff,var(--mint));border:2px solid var(--mint2);border-radius:26px;padding:40px 30px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden">
+        <div class="hero-badge" style="font-size:14px;padding:8px 18px;">✨ صفحة تعريفية</div>
+        <h1 style="font-size:clamp(30px,6vw,48px);margin:14px 0 10px;font-weight:900">عن المعرض</h1>
+        <p style="color:var(--muted);font-size:18px;line-height:1.9;max-width:700px;margin:0 auto">مساحة رقمية تجمع إبداعات معلمات مدرستنا وطالباتها، وتتيح استكشاف أعمالهن ومشروعاتهن في بيئة تفاعلية تُبرز المواهب وتحتفي بالجهود والإنجازات.</p>
+      </div>
+
+      <div class="section-head" style="margin-top:34px;">
+        <h2>أهداف المعرض</h2>
+        <p>نعمل من خلال المعرض على تحقيق مجموعة من الأهداف التربوية والإبداعية التي تُثري البيئة المدرسية.</p>
+      </div>
+
+      <div class="cards-grid" style="max-width:1000px;margin:0 auto;">
+        <!-- Goal 1 -->
+        <div class="work-card" style="text-align:center;padding:26px 18px;border:1px solid var(--mint2);">
+          <div class="work-cover" style="height:auto;font-size:44px;background:var(--mint2);margin-bottom:14px;">🌟</div>
+          <div class="work-body">
+            <h3 style="color:var(--primary-dark);">إبراز الأعمال المتميزة</h3>
+            <p class="muted" style="font-size:15px;line-height:1.7">عرض الأعمال الرقمية الرائعة للمعلمات والطالبات وتسليط الضوء عليها.</p>
+          </div>
+        </div>
+        <!-- Goal 2 -->
+        <div class="work-card" style="text-align:center;padding:26px 18px;border:1px solid var(--mint2);">
+          <div class="work-cover" style="height:auto;font-size:44px;background:var(--mint2);margin-bottom:14px;">🚀</div>
+          <div class="work-body">
+            <h3 style="color:var(--primary-dark);">تشجيع الإبداع الرقمي</h3>
+            <p class="muted" style="font-size:15px;line-height:1.7">تنمية مهارات الإنتاج الرقمي لدى المعلمات والطالبات وتحفيز الابتكار.</p>
+          </div>
+        </div>
+        <!-- Goal 3 -->
+        <div class="work-card" style="text-align:center;padding:26px 18px;border:1px solid var(--mint2);">
+          <div class="work-cover" style="height:auto;font-size:44px;background:var(--mint2);margin-bottom:14px;">🤝</div>
+          <div class="work-body">
+            <h3 style="color:var(--primary-dark);">تبادل الأفكار والخبرات</h3>
+            <p class="muted" style="font-size:15px;line-height:1.7">نشر الممارسات التعليمية الملهمة وتبادل الخبرات بين المشاركات.</p>
+          </div>
+        </div>
+        <!-- Goal 4 -->
+        <div class="work-card" style="text-align:center;padding:26px 18px;border:1px solid var(--mint2);">
+          <div class="work-cover" style="height:auto;font-size:44px;background:var(--mint2);margin-bottom:14px;">🏆</div>
+          <div class="work-body">
+            <h3 style="color:var(--primary-dark);">تقدير الجهود والإنجازات</h3>
+            <p class="muted" style="font-size:15px;line-height:1.7">تكريم المشاركات وتعزيز الدافعية للتعلم والتفوق الإبداعي.</p>
+          </div>
+        </div>
+        <!-- Goal 5 -->
+        <div class="work-card" style="text-align:center;padding:26px 18px;border:1px solid var(--mint2);">
+          <div class="work-cover" style="height:auto;font-size:44px;background:var(--mint2);margin-bottom:14px;">📚</div>
+          <div class="work-body">
+            <h3 style="color:var(--primary-dark);">توثيق النتاج الإبداعي</h3>
+            <p class="muted" style="font-size:15px;line-height:1.7">حفظ الأعمال الرقمية وإتاحتها للاطلاع والاستفادة من قبل الجميع.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;text-align:center;">
+        <a href="index.html" class="btn btn-primary">🔍 استكشف المعرض الآن</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span id="footText">معرض الإبداع المدرسي — جميع الأعمال لأصحابها من المعلمات والطلاب</span>
+      <span class="foot-note">صفحة عن المعرض — مساحة رقمية تحتفي بالإبداع المدرسي</span>
+    </div>
+  </footer>
+
+  <script>
+    // تحديث اسم المدرسة من الخط الافتراضي إذا وُجد
+    try {
+      const school = localStorage.getItem('vmx_settings_v1');
+      if (school) { const s = JSON.parse(school); if (s.school) document.getElementById('brandSchool').textContent = s.school; }
+    } catch (e) {}
+  </script>
+</body>
+</html>
