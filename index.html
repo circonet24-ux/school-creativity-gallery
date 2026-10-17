@@ -27,6 +27,7 @@
       <button data-nav="teachers" class="nav-link">إبداعات المعلمات</button>
       <button data-nav="students" class="nav-link">إبداعات الطلاب</button>
       <a href="about.html" class="nav-link">عن المعرض</a>
+      <a href="certificates.html" class="nav-link">تقدير الإبداع</a>
     </nav>
     <button id="adminEntryBtn" class="btn btn-ghost btn-sm" data-nav="admin">🔐 دخول المسؤول</button>
     <button id="menuBtn" class="icon-btn only-mobile" aria-label="القائمة">☰</button>
@@ -36,6 +37,7 @@
     <button data-nav="teachers">إبداعات المعلمات</button>
     <button data-nav="students">إبداعات الطلاب</button>
     <a href="about.html">عن المعرض</a>
+    <a href="certificates.html">تقدير الإبداع</a>
     <button data-nav="admin">🔐 دخول المسؤول</button>
   </div>
 </header>
@@ -158,6 +160,7 @@
       <button class="tab" data-tab="featured">المميزة والترتيب</button>
       <button class="tab" data-tab="settings">إعدادات المعرض</button>
       <button class="tab" data-tab="security">الأمان</button>
+      <button class="tab" data-tab="certs">🏆 شهادات التقدير</button>
     </div>
 
     <div id="tab-works" class="tabpane">
@@ -265,6 +268,30 @@
         <label>كلمة المرور الحالية<input id="secOld" type="password"></label>
         <label>كلمة المرور الجديدة<input id="secNew" type="password"></label>
         <button id="changePassBtn" class="btn btn-primary">حفظ التغيير</button>
+      </div>
+    </div>
+
+    <div id="tab-certs" class="tabpane hidden">
+      <div class="card"><h3>🏆 إدارة شهادات التقدير</h3>
+        <p class="muted">اعتمدي المشاركات المنشورة وأنشئي شهادات تقدير شخصية للمشاركات. كل مشاركة تحصل على رمز فريد لتحميل شهادتها.</p>
+        <div style="margin-bottom:16px;">
+          <label>معرف العمل (من الأعمال المنشورة)<input id="adminCertWorkId" type="text" dir="ltr" placeholder="مثل: w1a2b3" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit"></label>
+        </div>
+        <div class="row2" style="margin-bottom:16px;">
+          <label>اسم المشاركة<input id="adminCertName" type="text" placeholder="أ. نورة أحمد" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit"></label>
+          <label>تاريخ المشاركة<input id="adminCertDate" type="date" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit"></label>
+        </div>
+        <label>رسالة التقدير<label style="display:block;margin-top:6px;">(مثال: تقديرًا لمشاركتكِ الإبداعية في تصميم قصة رقمية هادفة)</label>
+          <input id="adminCertMessage" type="text" placeholder="تقديرًا لمشاركتكِ الإبداعية في ..." style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit">
+        </label>
+        <div class="form-actions" style="margin-top:16px;">
+          <button id="adminCertCreate" class="btn btn-primary">إنشاء شهادة</button>
+          <button id="adminCertRefresh" class="btn btn-ghost">تحديث القائمة</button>
+        </div>
+        <table class="table" style="margin-top:16px;">
+          <thead><tr><th>العمل</th><th>المشاركة</th><th>القسم</th><th>الرمز</th><th>التاريخ</th><th>إجراءات</th></tr></thead>
+          <tbody id="adminCertListTable"></tbody>
+        </table>
       </div>
     </div>
   </section>

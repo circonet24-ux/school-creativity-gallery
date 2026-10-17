@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تقدير الإبداع | معرض الإبداع المدرسي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+  <style>
+    .cert-page { max-width: 900px; margin: 0 auto; padding: 20px 16px; }
+    .cert-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; flex-wrap: wrap; gap: 10px; }
+    .cert-card { background: #fff; border: 2px solid var(--mint2); border-radius: 24px; padding: 30px; box-shadow: var(--shadow); text-align: center; margin-bottom: 20px; }
+    .cert-border { border: 3px solid var(--primary); border-radius: 22px; padding: 44px 30px; position: relative; }
+    .cert-corner { position: absolute; width: 28px; height: 28px; border: 3px solid var(--gold); }
+    .cert-title { font-size: 32px; font-weight: 900; color: var(--primary-dark); margin: 20px 0 6px; }
+    .cert-subtitle { font-size: 17px; color: var(--muted); margin-bottom: 30px; }
+    .cert-body { font-size: 18px; line-height: 2; margin: 32px 0; }
+    .cert-name { font-size: 26px; font-weight: 800; color: var(--primary); margin: 10px 0; }
+    .cert-work { font-size: 19px; color: var(--ink); margin: 10px 0; }
+    .cert-message { font-style: italic; color: var(--primary-dark); margin: 18px 0; font-size: 18px; }
+    .cert-code { font-size: 14px; background: var(--mint); padding: 6px 16px; border-radius: 20px; display: inline-block; margin-top: 20px; font-family: monospace; font-weight: 700; }
+    .cert-row { display: flex; justify-content: space-between; margin-top: 42px; font-size: 15px; }
+    .cert-col { text-align: center; flex: 1; }
+    .cert-label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 4px; }
+    .cert-value { font-weight: 800; color: var(--ink); }
+    .cert-actions { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+    .cert-actions .btn { min-width: 150px; }
+    .no-print { display: inline-block !important; }
+    @media print {
+      body * { visibility: hidden !important; }
+      #certificate, #certificate * { visibility: visible !important; }
+      #certificate { position: absolute !important; left: 0; top: 0; width: 100%; padding: 0; box-shadow: none !important; border: none !important; background: #fff !important; }
+      .no-print { display: none !important; }
+      .cert-print { display: block !important; }
+      body { background: #fff !important; }
+    }
+    .code-form { max-width: 420px; margin: 60px auto; background: #fff; padding: 32px; border-radius: 22px; border: 2px solid var(--mint2); box-shadow: var(--shadow); text-align: center; }
+    .admin-section { background: #fff; border: 2px solid var(--mint2); border-radius: 20px; padding: 24px; margin-top: 30px; box-shadow: var(--shadow); }
+    .cert-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+    .cert-table th, .cert-table td { padding: 10px; border-bottom: 1px solid var(--mint2); text-align: right; }
+    .cert-table th { background: var(--mint); }
+    .cert-list-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="الرئيسية">
+        <span class="brand-logo" id="brandLogo">🏆</span>
+        <span class="brand-text">
+          <strong id="brandSchool">مدرسة النموذجية الابتدائية</strong>
+          <small id="brandGallery">تقدير الإبداع</small>
+        </span>
+      </a>
+      <nav class="topnav">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="certificates.html" class="nav-link active">تقدير الإبداع</a>
+      </nav>
+      <a href="index.html" class="btn btn-ghost btn-sm">العودة للمعرض</a>
+      <button id="menuBtn" class="icon-btn only-mobile" aria-label="القائمة">☰</button>
+    </div>
+    <div id="mobileNav" class="mobile-nav hidden">
+      <a href="index.html">الرئيسية</a>
+      <a href="certificates.html">تقدير الإبداع</a>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 10px;">
+    <div class="cert-page">
+      <!-- مشاركة: إدخال رمز الشهادة -->
+      <div id="certEntry" class="code-form">
+        <h2>🏆 شهادة تقدير وإبداع</h2>
+        <p class="muted">أدخلي رمز الشهادة الخاص بكِ لعرض شهادتك وتحميلها أو طباعتها</p>
+        <label style="display:block;margin:14px 0 6px;text-align:right;">رمز الشهادة</label>
+        <input id="certCode" type="text" placeholder="مثال: CREAT-2026-AB12" dir="ltr" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:12px;font-family:inherit;font-size:15px">
+        <button id="verifyCodeBtn" class="btn btn-primary full">عرض الشهادة</button>
+        <p class="hint" style="margin-top:14px;">لم تتلقي رمزاً بعد؟ تواصلي مع مسؤول المعرض لاعتماد مشاركتك وإصدار شهادتك.</p>
+      </div>
+
+      <!-- عرض الشهادة -->
+      <div id="certDisplay" class="hidden cert-card">
+        <div id="certificate">
+          <div class="cert-border">
+            <div class="cert-corner" style="top:0;right:0;border-right:0;border-bottom:0;"></div>
+            <div class="cert-corner" style="top:0;left:0;border-left:0;border-bottom:0;"></div>
+            <div class="cert-corner" style="bottom:0;right:0;border-right:0;border-top:0;"></div>
+            <div class="cert-corner" style="bottom:0;left:0;border-left:0;border-top:0;"></div>
+            <div style="font-size:18px;color:var(--primary-dark);font-weight:800;letter-spacing:2px;">🏆 <span id="certSchool"></span></div>
+            <div style="font-size:16px;color:var(--muted);margin:6px 0 24px;">معرض الإبداع المدرسي</div>
+            <div class="cert-title">شهادة تقدير وتميز</div>
+            <div class="cert-subtitle">تُمنح هذه الشهادة تقديرًا للجهود الإبداعية والإنجازات</div>
+            <div class="cert-body">
+              تُمنح هذه الشهادة إلى:
+              <div class="cert-name" id="certName"></div>
+              تقديرًا لمشاركتها الإبداعية في العمل:
+              <div class="cert-work" id="certWork"></div>
+              <div class="cert-message" id="certMessage"></div>
+            </div>
+            <div class="cert-row">
+              <div class="cert-col"><span class="cert-label">تاريخ المشاركة</span><span class="cert-value" id="certDate"></span></div>
+              <div class="cert-col"><span class="cert-label">رمز الشهادة</span><span class="cert-value cert-code" id="certCodeShow" style="display:inline-block;"></span></div>
+              <div class="cert-col"><span class="cert-label">تاريخ الإصدار</span><span class="cert-value" id="certIssueDate"></span></div>
+            </div>
+            <div style="margin-top:52px;border-top:1px solid var(--mint2);padding-top:24px;display:flex;justify-content:space-between;">
+              <div style="text-align:right;">
+                <div class="cert-label">توقيع مسؤول المعرض</div>
+                <div class="cert-value" style="color:var(--primary-dark);">مسؤول معرض الإبداع المدرسي</div>
+              </div>
+              <div style="text-align:left;">
+                <div class="cert-label">الجهة المصدرة</div>
+                <div class="cert-value">مدرسة النموذجية الابتدائية</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cert-actions no-print">
+          <button id="printCert" class="btn btn-secondary">🖨️ طباعة الشهادة</button>
+          <button id="downloadCertPdf" class="btn btn-primary">📄 تحميل PDF</button>
+          <button class="btn btn-ghost" onclick="location.reload()">🔄 شهادة أخرى</button>
+        </div>
+        <div id="certMsg" class="muted no-print" style="margin-top:14px;text-align:center;"></div>
+      </div>
+
+      <!-- لوحة المسؤول لإدارة الشهادات -->
+      <div id="adminCerts" class="hidden admin-section no-print">
+        <h3>🛡️ إدارة شهادات التقدير (مسؤول فقط)</h3>
+        <p class="muted">اعتمدي المشاركات المنشورة وأنشئي شهادات تقدير شخصية. كل مشاركة تحصل على رمز فريد لتحميل شهادتها مرة واحدة أو أكثر.</p>
+        <div style="margin-bottom:16px;">
+          <label>معرف العمل (من قائمة الأعمال المنشورة)</label>
+          <input id="adminWorkId" type="text" dir="ltr" placeholder="مثل: w1a2b3" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit">
+        </div>
+        <div class="row2" style="margin-bottom:16px;">
+          <label>اسم المشاركة<input id="adminPartName" type="text" placeholder="أ. نورة أحمد" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit"></label>
+          <label>تاريخ المشاركة<input id="adminPartDate" type="date" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit"></label>
+        </div>
+        <label>رسالة التقدير<label style="display:block;margin-top:6px;">(مثال: تقديرًا لمشاركتكِ الإبداعية في تصميم قصة رقمية هادفة)</label>
+          <input id="adminPartMessage" type="text" style="width:100%;margin-top:6px;border:2px solid var(--mint2);border-radius:12px;padding:10px;font-family:inherit">
+        </label>
+        <div class="form-actions">
+          <button id="adminCreateCert" class="btn btn-primary">إنشاء شهادة</button>
+          <button id="adminRefreshCerts" class="btn btn-ghost">تحديث القائمة</button>
+        </div>
+        <div id="certListWrap" style="margin-top:20px;">
+          <table class="cert-table">
+            <thead><tr><th>العمل</th><th>المشاركة</th><th>القسم</th><th>الرمز</th><th>التاريخ</th><th>الإجراءات</th></tr></thead>
+            <tbody id="adminCertList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span id="footText">معرض الإبداع المدرسي — شهادات تقدير للمشاركات المعتمدة</span>
+      <span class="foot-note">تقدير الإبداع — مساحة رقمية تحتفي بالجهود والإنجازات</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    (function(){
+      "use strict";
+      const LS = { works:"vmx_works_v1", settings:"vmx_settings_v1", auth:"vmx_auth_v1", session:"vmx_session_v1", certs:"vmx_certs_v1" };
+      const $ = s => document.querySelector(s);
+      function load(k, fb){ try{ const v = localStorage.getItem(k); if(v==null) return fb; return JSON.parse(v); }catch(e){ return fb; } }
+      function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ toast("مساحة التخزين ممتلئة","err"); return false; } }
+      function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+      function toast(msg, kind){
+        const w = $("#toastWrap"); const t = document.createElement("div");
+        t.className = "toast " + (kind||""); t.textContent = msg; w.appendChild(t);
+        setTimeout(()=>{ t.style.opacity="0"; setTimeout(()=>t.remove(),300); }, 2600);
+      }
+      function isLogged(){ return sessionStorage.getItem(LS.session)==="1"; }
+
+      let settings = load(LS.settings, { school:"مدرسة النموذجية الابتدائية", gallery:"معرض الإبداع المدرسي" });
+      $("#brandSchool").textContent = settings.school;
+      document.title = "تقدير الإبداع | " + settings.school;
+
+      let certs = load(LS.certs, []);
+      function saveCerts(){ return save(LS.certs, certs); }
+
+      $$ = s => Array.from(document.querySelectorAll(s));
+      $$(".nav-link").forEach(b=>{ if(b.getAttribute("href")===location.pathname.split("/").pop()) b.classList.add("active"); });
+
+      const certEntry = $("#certEntry");
+      const certDisplay = $("#certDisplay");
+      const adminCertsEl = $("#adminCerts");
+
+      function showCert(code){
+        const c = certs.find(x=>x.code===code.toUpperCase());
+        if(!c){ toast("رمز الشهادة غير صحيح أو غير موجود","err"); return; }
+        const works = load(LS.works, []);
+        const w = works.find(x=>x.id===c.workId);
+        certEntry.classList.add("hidden");
+        certDisplay.classList.remove("hidden");
+        if(adminCertsEl) adminCertsEl.classList.add("hidden");
+        $("#certName").textContent = c.participantName;
+        $("#certWork").textContent = c.workTitle || (w?w.title:"");
+        $("#certMessage").textContent = c.message || "تقديرًا لمشاركتكِ الإبداعية في معرض الإبداع المدرسي.";
+        $("#certDate").textContent = c.date || "";
+        $("#certCodeShow").textContent = c.code;
+        $("#certIssueDate").textContent = new Date().toLocaleDateString("ar-SA");
+        $("#certSchool").textContent = settings.school;
+        c.views = (c.views||0)+1;
+        save(LS.certs, certs);
+      }
+
+      $("#verifyCodeBtn").addEventListener("click", ()=>{
+        const code = $("#certCode").value.trim();
+        if(!code) return toast("أدخلي رمز الشهادة","err");
+        showCert(code);
+      });
+      $("#certCode").addEventListener("keydown", e=>{ if(e.key==="Enter") $("#verifyCodeBtn").click(); });
+
+      $("#printCert").addEventListener("click", ()=>window.print());
+
+      $("#downloadCertPdf").addEventListener("click", async ()=>{
+        const btn = $("#downloadCertPdf");
+        const orig = btn.textContent;
+        btn.textContent = "جاري التحضير..."; btn.disabled = true;
+        try{
+          const certEl = document.querySelector("#certificate");
+          const canvas = await html2canvas(certEl, { scale: 2, useCORS: true, logging: false });
+          const imgData = canvas.toDataURL("image/png");
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF("p", "mm", "a4");
+          const imgProps = pdf.getImageProperties(imgData);
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+          pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, Math.min(pdfHeight, pdf.internal.pageSize.getHeight()));
+          pdf.save("شهادة_تقدير_" + $("#certCodeShow").textContent + ".pdf");
+          const c = certs.find(x=>x.code===$("#certCodeShow").textContent);
+          if(c){ c.downloads = (c.downloads||0)+1; save(LS.certs, certs); }
+          toast("تم تحميل الشهادة بنجاح","ok");
+        }catch(err){
+          toast("يمكنك استخدام زر الطباعة وحفظ الصفحة كملف PDF","err");
+          console.error(err);
+        } finally {
+          btn.textContent = orig; btn.disabled = false;
+        }
+      });
+
+      if(isLogged()){
+        adminCertsEl.classList.remove("hidden");
+        renderAdminCerts();
+      }
+
+      function renderAdminCerts(){
+        const tb = $("#adminCertList"); tb.innerHTML="";
+        if(!certs.length){ tb.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--muted)">لا توجد شهادات بعد</td></tr>`; return; }
+        certs.slice().reverse().forEach(c=>{
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${esc(c.workTitle||"")}</td><td>${esc(c.participantName)}</td><td>${c.section==="teachers"?"👩‍🏫 معلمات":"🧑‍🎓 طلاب"}</td><td style="font-family:monospace;font-size:12px">${esc(c.code)}</td><td>${esc(c.date||"")}</td><td></td>`;
+          const acts = tr.lastElementChild; acts.style.display="flex"; acts.style.gap="6px";
+          const mk=(t,fn,cls)=>{ const b=document.createElement("button"); b.className="btn btn-sm "+(cls||"btn-ghost"); b.textContent=t; b.addEventListener("click",fn); acts.appendChild(b); };
+          mk("📄 عرض", ()=>showCert(c.code));
+          mk("🗑️", ()=>{ certs=certs.filter(x=>x.id!==c.id); save(LS.certs,certs); renderAdminCerts(); toast("تم حذف الشهادة","ok"); }, "btn-danger");
+          tb.appendChild(tr);
+        });
+      }
+
+      $("#adminCreateCert").addEventListener("click", ()=>{
+        const workId = $("#adminWorkId").value.trim();
+        const name = $("#adminPartName").value.trim();
+        const date = $("#adminPartDate").value;
+        const message = $("#adminPartMessage").value.trim();
+        if(!workId||!name||!date) return toast("أكملي معرف العمل واسم المشاركة والتاريخ","err");
+        const works = load(LS.works, []);
+        const w = works.find(x=>x.id===workId);
+        if(!w) return toast("المWork غير موجود","err");
+        if(!w.published) return toast("يجب أن يكون العمل منشورًا أولاً قبل إنشاء الشهادة","err");
+        if(certs.some(c=>c.workId===workId)) return toast("هناك شهادة صادرة بالفعل لهذا العمل","err");
+        const cert = {
+          id: "c"+Date.now().toString(36)+Math.random().toString(36).slice(2,4),
+          code: "CREAT-"+new Date().getFullYear()+"-"+Math.random().toString(36).toUpperCase().slice(2,6),
+          workId: workId,
+          participantName: name,
+          workTitle: w.title,
+          schoolName: settings.school,
+          galleryName: settings.gallery,
+          date: date,
+          message: message || "تقديرًا لمشاركتكِ الإبداعية في معرض الإبداع المدرسي.",
+          section: w.section,
+          approvedAt: Date.now(),
+          downloads: 0,
+          views: 0
+        };
+        certs.push(cert);
+        if(!save(LS.certs, certs)) return;
+        toast("تم إنشاء الشهادة — الرمز: "+cert.code,"ok");
+        $("#adminWorkId").value=""; $("#adminPartName").value=""; $("#adminPartDate").value=""; $("#adminPartMessage").value="";
+        renderAdminCerts();
+      });
+      $("#adminRefreshCerts").addEventListener("click", renderAdminCerts);
+      $("#adminPartDate").value = new Date().toISOString().split("T")[0];
+
+      const params = new URLSearchParams(location.search);
+      if(params.get("code")){ $("#certCode").value = params.get("code"); $("#verifyCodeBtn").click(); }
+
+      $("#menuBtn").addEventListener("click", ()=>$("#mobileNav").classList.toggle("hidden"));
+    })();
+  </script>
+</body>
+</html>

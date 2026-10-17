@@ -1,7 +1,7 @@
 /* معرض الإبداع المدرسي — تطبيق ثابت بحفظ محلي (localStorage) */
 (function(){
 "use strict";
-const LS = { works:"vmx_works_v1", cats:"vmx_cats_v1", settings:"vmx_settings_v1", auth:"vmx_auth_v1", session:"vmx_session_v1" };
+const LS = { works:"vmx_works_v1", cats:"vmx_cats_v1", settings:"vmx_settings_v1", auth:"vmx_auth_v1", session:"vmx_session_v1", certs:"vmx_certs_v1" };
 const LIMITS = { image:10*1024*1024, pdf:20*1024*1024, video:100*1024*1024, cover:5*1024*1024 };
 const TYPE_LABEL = { image:"🖼️ صورة / تصميم", pdf:"📕 ملف PDF", video:"🎬 فيديو", link:"🔗 رابط خارجي" };
 const $ = s => document.querySelector(s);
@@ -231,12 +231,12 @@ $("#logoutBtn").addEventListener("click", ()=>{ sessionStorage.removeItem(LS.ses
 let pendingDeleteId = null;
 $$(".tab").forEach(t=>t.addEventListener("click", ()=>{
   $$(".tab").forEach(x=>x.classList.remove("active")); t.classList.add("active");
-  ["works","editor","cats","featured","settings","security"].forEach(k=>$("#tab-"+k).classList.toggle("hidden", k!==t.dataset.tab));
+  ["works","editor","cats","featured","settings","security","certs"].forEach(k=>$("#tab-"+k).classList.toggle("hidden", k!==t.dataset.tab));
 }));
 function renderAdmin(){
   const a = load(LS.auth,null);
   $("#adminHello").textContent = "مرحبًا " + (a?a.user:"") + " — جميع التعديلات تُحفظ على هذا الجهاز";
-  refreshCatSelect(); drawWorksTable(); drawCats(); drawOrder(); fillSettings();
+  refreshCatSelect(); drawWorksTable(); drawCats(); drawOrder(); fillSettings(); drawCertAdmin();
 }
 function refreshCatSelect(){
   $("#fCategory").innerHTML = cats.map(c=>`<option>${esc(c)}</option>`).join("") || `<option value="">بدون تصنيف</option>`;
@@ -425,7 +425,58 @@ $("#changePassBtn").addEventListener("click", async ()=>{
   $("#secOld").value=""; $("#secNew").value=""; toast("تم تحديث بيانات الدخول","ok");
 });
 
-/* init */
-updateFileHint();
-nav("home");
+  /* certificates admin */
+  let certs = load(LS.certs, []);
+  function certSave(){ return save(LS.certs, certs); }
+  function certCode(){ return "CREAT-"+new Date().getFullYear()+"-"+Math.random().toString(36).toUpperCase().slice(2,6); }
+  function drawCertAdmin(){
+    const tb = $("#adminCertListTable"); if(!tb) return;
+    tb.innerHTML="";
+    if(!certs.length){ tb.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--muted)">لا توجد شهادات بعد</td></tr>`; return; }
+    certs.slice().reverse().forEach(c=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${esc(c.workTitle||"")}</td><td>${esc(c.participantName)}</td><td>${c.section==="teachers"?"👩‍🏫 معلمات":"🧑‍🎓 طلاب"}</td><td style="font-family:monospace;font-size:12px">${esc(c.code)}</td><td>${esc(c.date||"")}</td><td></td>`;
+      const acts = tr.lastElementChild; acts.style.display="flex"; acts.style.gap="6px";
+      const mk=(t,fn,cls)=>{ const b=document.createElement("button"); b.className="btn btn-sm "+(cls||"btn-ghost"); b.textContent=t; b.addEventListener("click",fn); acts.appendChild(b); };
+      mk("🗑️", ()=>{ certs=certs.filter(x=>x.id!==c.id); certSave(); drawCertAdmin(); toast("تم حذف الشهادة","ok"); }, "btn-danger");
+      tb.appendChild(tr);
+    });
+  }
+  $("#adminCertCreate").addEventListener("click", ()=>{
+    const workId = $("#adminCertWorkId").value.trim();
+    const name = $("#adminCertName").value.trim();
+    const date = $("#adminCertDate").value;
+    const message = $("#adminCertMessage").value.trim();
+    if(!workId||!name||!date) return toast("أكملي معرف العمل واسم المشاركة والتاريخ","err");
+    const w = works.find(x=>x.id===workId);
+    if(!w) return toast("المWork غير موجود","err");
+    if(!w.published) return toast("يجب أن يكون العمل منشورًا أولاً قبل إنشاء الشهادة","err");
+    if(certs.some(c=>c.workId===workId)) return toast("هناك شهادة صادرة بالفعل لهذا العمل","err");
+    const cert = {
+      id: "c"+Date.now().toString(36)+Math.random().toString(36).slice(2,4),
+      code: certCode(),
+      workId: workId,
+      participantName: name,
+      workTitle: w.title,
+      schoolName: settings.school,
+      galleryName: settings.gallery,
+      date: date,
+      message: message || "تقديرًا لمشاركتكِ الإبداعية في معرض الإبداع المدرسي.",
+      section: w.section,
+      approvedAt: Date.now(),
+      downloads: 0,
+      views: 0
+    };
+    certs.push(cert);
+    if(!certSave()) return;
+    toast("تم إنشاء الشهادة — الرمز: "+cert.code,"ok");
+    $("#adminCertWorkId").value=""; $("#adminCertName").value=""; $("#adminCertDate").value=""; $("#adminCertMessage").value="";
+    drawCertAdmin();
+  });
+  $("#adminCertRefresh").addEventListener("click", drawCertAdmin);
+  $("#adminCertDate").value = new Date().toISOString().split("T")[0];
+
+  /* init */
+  updateFileHint();
+  nav("home");
 })();
