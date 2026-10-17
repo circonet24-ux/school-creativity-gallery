@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Maskable safe zone: keep content inside center 66% (around 170px margin) -->
+  <rect width="512" height="512" fill="#0ea5a0" rx="80"/>
+  <text x="256" y="310" font-size="220" text-anchor="middle" font-family="Segoe UI Emoji, Apple Color Emoji, Noto Color Emoji, sans-serif" fill="#ffffff">🎨</text>
+</svg>
